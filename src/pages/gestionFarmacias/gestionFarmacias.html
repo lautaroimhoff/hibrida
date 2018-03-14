@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-navbar>
+     <ion-segment [(ngModel)]="action">
+      <ion-segment-button value="listar" (click)="listarFarmacias()">
+        Ver lista
+      </ion-segment-button>
+      <ion-segment-button value="agregar">
+        Agregar nueva
+      </ion-segment-button>
+      <ion-segment-button value="editar" (click)="cancelarPut()">
+        Editar / Borrar
+      </ion-segment-button>
+    </ion-segment>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+<div [ngSwitch]="action">
+<ion-list paading *ngSwitchCase="'listar'">
+        <ion-item *ngFor="let farmacia of farmacias" (click)="onClick(farmacia.nombre)">
+          <ion-icon name="medkit" item-start></ion-icon>
+          <h2>{{farmacia.nombre}}</h2>
+          <h3><ion-icon name="call"> </ion-icon> {{farmacia.telefono}}
+              <ion-icon name="mail"> </ion-icon> {{farmacia.email}} 
+          </h3>
+          
+      </ion-item>
+</ion-list> 
+
+<ion-list *ngSwitchCase="'agregar'">
+    <ion-item>
+      <ion-label fixed>Nombre</ion-label>
+      <ion-input type="text" [(ngModel)]=farmacia.nombre></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Calle</ion-label>
+      <ion-input type="text" [(ngModel)]=farmacia.calle></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Numero </ion-label>
+      <ion-input type="text" [(ngModel)]=farmacia.numero></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Telefono</ion-label>
+      <ion-input type="numeric" [(ngModel)]=farmacia.telefono></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Email</ion-label>
+      <ion-input type="email" [(ngModel)]=farmacia.email></ion-input>
+    </ion-item>
+    <ion-item>
+    <button ion-button  (click)="agregarFarmacia()">Agregar </button> 
+    <button ion-button  (click)="cancelarPost()">Cancelar</button> 
+  </ion-item>
+</ion-list>
+
+<ion-list *ngSwitchCase="'editar'">
+    <ion-item>
+        <ion-label>Farmacia </ion-label>
+        <ion-select [(ngModel)]="farmaciaAux" interface="popover" name="itera">
+            <ion-option *ngFor="let sele of farmacias" [value]="sele" >{{sele.nombre}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+          <ion-label fixed>Nombre</ion-label>
+          <ion-input type="text" [(ngModel)]=farmaciaAux.nombre></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Calle</ion-label>
+          <ion-input type="text" [(ngModel)]=farmaciaAux.calle></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Numero </ion-label>
+          <ion-input type="text" [(ngModel)]=farmaciaAux.numero></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Telefono</ion-label>
+          <ion-input type="numeric" [(ngModel)]=farmaciaAux.telefono></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Email</ion-label>
+          <ion-input type="email" [(ngModel)]=farmaciaAux.email></ion-input>
+        </ion-item>
+        <ion-item>
+        <button ion-button  (click)="modificarFarmacia()"> Modificar </button> 
+        <button ion-button  (click)="eliminarFarmacia()"> Eliminar </button> 
+        <button ion-button  (click)="cancelarPut()">Cancelar</button> 
+      </ion-item>
+
+</ion-list>
+
+</div> 
+  
+</ion-content>
+

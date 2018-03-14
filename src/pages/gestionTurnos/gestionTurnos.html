@@ -1,0 +1,62 @@
+<ion-header>
+    <ion-navbar>
+        <ion-segment [(ngModel)]="action">
+         <ion-segment-button value="carga" >
+           Carga masiva
+         </ion-segment-button>
+         <ion-segment-button value="cambio">
+           Cambios de turno
+         </ion-segment-button>
+         <ion-segment-button value="listar">
+           Ver turnos
+         </ion-segment-button>
+       </ion-segment>
+     </ion-navbar>
+</ion-header>     
+<ion-content (focus)="listarFarmacias()">
+<div [ngSwitch]="action"> 
+
+        <ion-list *ngSwitchCase="'carga'" >
+            <b>   ¿Como cargar todos los turnos?</b>
+            <ul>
+              <li>  Seleccionar la farmacia.</li>
+              <li>  Seleccionar la fecha del turno.</li>
+              <li>  Agregar a la lista.</li>
+              <li>  Repetir el proceso hasta completar la lista.</li>
+              <li>  Confirmar carga.</li>
+            </ul>
+            <ion-item>
+             <ion-label>Farmacia  </ion-label>
+             <ion-select [(ngModel)]="farmacia" interface="popover">
+             <ion-option *ngFor="let sele of farmacias" [value]="sele" >{{sele.nombre}}</ion-option>
+             </ion-select>
+             </ion-item>
+             <ion-item>
+              <ion-label>Dia de turno</ion-label>
+              <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="fecha"></ion-datetime>
+            </ion-item>
+
+              <button ion-button (click)="agregarAlista()">Agregar a la lista</button>
+            <ion-item> <ion-scroll style="height: 150px" scrollY="true">
+              <ion-item *ngFor="let turnoS of lista" >
+                  <ion-icon name="md-calendar" item-start></ion-icon>
+                  <h2>{{turnoS.farmacia.nombre}}</h2>
+                  <h2>{{turnoS.fecha}}</h2>    
+              </ion-item>
+              </ion-scroll>
+              </ion-item>
+              <button ion-button (click)="confimarCarga()"> Confirmar Carga </button>
+            
+
+            </ion-list>
+       
+
+            <ion-list *ngSwitchCase="'cambio'">
+              <button ion-button (click)="onClick()">Prueba</button>
+            </ion-list>
+          </div>
+       
+</ion-content>
+
+
+
